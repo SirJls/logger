@@ -67,7 +67,10 @@ void _log(const char *filepath, int line, logger_priority_t priority,
 
 		if (filepath && line) {
 			const char *file = filepath + strlen(filepath);
-			for (; file != filepath && *file != '/'; --file);
+			while (file != filepath && *file != '/')
+				--file;
+			if (*file == '/')
+				++file;
 			fprintf(stderr, "[%s:%d] ", file, line);
 		}
 
